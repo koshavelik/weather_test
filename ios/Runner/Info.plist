@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIBackgroundModes</key>
+	<string>location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app does not access your location.</string>
 </dict>
 </plist>

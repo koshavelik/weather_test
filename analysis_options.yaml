@@ -1,14 +1,13 @@
 include: package:pedantic/analysis_options.yaml
 
 analyzer:
-  exclude: [build/**, lib/**.g.dart, test/**]
+  exclude: [build/**, lib/**.g.dart, lib/**.gr.dart]
   language:
     strict-raw-types: true
   strong-mode:
     implicit-casts: false
   errors:
     always_use_package_imports: error
-    require_trailing_commas: error
     hash_and_equals: error
     always_put_required_named_parameters_first: error
     avoid_catches_without_on_clauses: error
@@ -36,7 +35,6 @@ analyzer:
 linter:
   rules:
     - always_use_package_imports
-    - require_trailing_commas
     - hash_and_equals
     - always_put_required_named_parameters_first
     - avoid_catches_without_on_clauses
