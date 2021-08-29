@@ -11,13 +11,18 @@ class _$ForecastState extends ForecastState {
   final bool isLoading;
   @override
   final ForecastModel? forecast;
+  @override
+  final BuiltList<String> errors;
 
   factory _$ForecastState([void Function(ForecastStateBuilder)? updates]) =>
       (new ForecastStateBuilder()..update(updates)).build();
 
-  _$ForecastState._({required this.isLoading, this.forecast}) : super._() {
+  _$ForecastState._(
+      {required this.isLoading, this.forecast, required this.errors})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         isLoading, 'ForecastState', 'isLoading');
+    BuiltValueNullFieldError.checkNotNull(errors, 'ForecastState', 'errors');
   }
 
   @override
@@ -32,19 +37,22 @@ class _$ForecastState extends ForecastState {
     if (identical(other, this)) return true;
     return other is ForecastState &&
         isLoading == other.isLoading &&
-        forecast == other.forecast;
+        forecast == other.forecast &&
+        errors == other.errors;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, isLoading.hashCode), forecast.hashCode));
+    return $jf($jc(
+        $jc($jc(0, isLoading.hashCode), forecast.hashCode), errors.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ForecastState')
           ..add('isLoading', isLoading)
-          ..add('forecast', forecast))
+          ..add('forecast', forecast)
+          ..add('errors', errors))
         .toString();
   }
 }
@@ -62,6 +70,11 @@ class ForecastStateBuilder
       _$this._forecast ??= new ForecastModelBuilder();
   set forecast(ForecastModelBuilder? forecast) => _$this._forecast = forecast;
 
+  ListBuilder<String>? _errors;
+  ListBuilder<String> get errors =>
+      _$this._errors ??= new ListBuilder<String>();
+  set errors(ListBuilder<String>? errors) => _$this._errors = errors;
+
   ForecastStateBuilder() {
     ForecastState._initializeBuilder(this);
   }
@@ -71,6 +84,7 @@ class ForecastStateBuilder
     if ($v != null) {
       _isLoading = $v.isLoading;
       _forecast = $v.forecast?.toBuilder();
+      _errors = $v.errors.toBuilder();
       _$v = null;
     }
     return this;
@@ -95,12 +109,15 @@ class ForecastStateBuilder
           new _$ForecastState._(
               isLoading: BuiltValueNullFieldError.checkNotNull(
                   isLoading, 'ForecastState', 'isLoading'),
-              forecast: _forecast?.build());
+              forecast: _forecast?.build(),
+              errors: errors.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'forecast';
         _forecast?.build();
+        _$failedField = 'errors';
+        errors.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'ForecastState', _$failedField, e.toString());

@@ -9,6 +9,8 @@ abstract class ForecastState implements Built<ForecastState, ForecastStateBuilde
 
   ForecastModel? get forecast;
 
+  BuiltList<String> get errors;
+
   ForecastState._();
 
   factory ForecastState([void Function(ForecastStateBuilder) updates]) = _$ForecastState;

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:weather_test/bloc/view_action.dart';
 
 abstract class BaseBloc<Event, State> extends Bloc<Event, State> {
   final PublishSubject<ViewAction> _stream = PublishSubject();
@@ -20,6 +19,11 @@ abstract class BaseBloc<Event, State> extends Bloc<Event, State> {
     _stream.add(target);
   }
 
+  @protected
+  void showError(String error) {
+    dispatchViewEvent(ShowError(error));
+  }
+
   @override
   Future<void> close() {
     for (final subscription in subscriptions) {
@@ -28,4 +32,12 @@ abstract class BaseBloc<Event, State> extends Bloc<Event, State> {
     _stream.close();
     return super.close();
   }
+}
+
+abstract class ViewAction {}
+
+class ShowError extends ViewAction {
+  final String error;
+
+  ShowError(this.error);
 }

@@ -17,9 +17,9 @@ abstract class WeatherModel implements Built<WeatherModel, WeatherModelBuilder> 
 
   String get icon;
 
-  String get imageUrlX2 => sprintf(Constants.WEATHER_API_IMAGE_URL_x2, [icon]);
+  String get imageUrlX2 => sprintf(Settings.WEATHER_API_IMAGE_URL_x2, [icon]);
 
-  String get imageUrlX4 => sprintf(Constants.WEATHER_API_IMAGE_URL_x4, [icon]);
+  String get imageUrlX4 => sprintf(Settings.WEATHER_API_IMAGE_URL_x4, [icon]);
 
   WeatherModel._();
 

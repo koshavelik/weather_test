@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:weather_test/bloc/forecast/forecast_bloc.dart';
 import 'package:weather_test/injection/injector.dart';
 import 'package:weather_test/model/forecast_item_model.dart';
 import 'package:weather_test/ui/screen/forecast/forecast_item.dart';
+import 'package:weather_test/ui/widget/error_message.dart';
 import 'package:weather_test/ui/widget/loading.dart';
-import 'package:weather_test/extensions/context_extensions.dart';
+import 'package:weather_test/generated/locale_keys.g.dart';
+
 
 class ForecastScreen extends StatefulWidget {
   const ForecastScreen({Key? key}) : super(key: key);
@@ -33,6 +35,10 @@ class _ForecastScreenState extends State<ForecastScreen> {
   }
 
   Widget _buildWeather(BuildContext context, ForecastState state) {
+    if (state.errors.isNotEmpty) {
+      return ErrorMessage(errors: state.errors);
+    }
+
     if (state.isLoading || state.forecast == null) {
       return Loading();
     }
@@ -59,7 +65,7 @@ class _ForecastScreenState extends State<ForecastScreen> {
       String dayText = key;
 
       if (key == DateFormat('EEEE').format(DateTime.now())) {
-        dayText = context.strings.today;
+        dayText = LocaleKeys.today.tr();
       }
 
       return Column(

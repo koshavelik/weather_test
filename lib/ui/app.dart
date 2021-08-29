@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:weather_test/router.dart';
 
 class App extends StatefulWidget {
@@ -21,14 +21,15 @@ class _AppState extends State<App> {
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       builder: (context, router) => router!,
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       localeResolutionCallback: (locale, supportedLocales) {
         for (final supportedLocaleLanguage in supportedLocales) {
           if (supportedLocaleLanguage.languageCode == locale?.languageCode) {
             return supportedLocaleLanguage;
           }
         }
+        Intl.defaultLocale = '${supportedLocales.first}';
         return supportedLocales.first;
       },
     );

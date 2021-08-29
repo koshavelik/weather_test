@@ -11,12 +11,16 @@ class _$TodayState extends TodayState {
   final CurrentWeatherModel? weather;
   @override
   final bool isLoading;
+  @override
+  final BuiltList<String> errors;
 
   factory _$TodayState([void Function(TodayStateBuilder)? updates]) =>
       (new TodayStateBuilder()..update(updates)).build();
 
-  _$TodayState._({this.weather, required this.isLoading}) : super._() {
+  _$TodayState._({this.weather, required this.isLoading, required this.errors})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(isLoading, 'TodayState', 'isLoading');
+    BuiltValueNullFieldError.checkNotNull(errors, 'TodayState', 'errors');
   }
 
   @override
@@ -31,19 +35,22 @@ class _$TodayState extends TodayState {
     if (identical(other, this)) return true;
     return other is TodayState &&
         weather == other.weather &&
-        isLoading == other.isLoading;
+        isLoading == other.isLoading &&
+        errors == other.errors;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, weather.hashCode), isLoading.hashCode));
+    return $jf($jc(
+        $jc($jc(0, weather.hashCode), isLoading.hashCode), errors.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TodayState')
           ..add('weather', weather)
-          ..add('isLoading', isLoading))
+          ..add('isLoading', isLoading)
+          ..add('errors', errors))
         .toString();
   }
 }
@@ -60,6 +67,11 @@ class TodayStateBuilder implements Builder<TodayState, TodayStateBuilder> {
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
 
+  ListBuilder<String>? _errors;
+  ListBuilder<String> get errors =>
+      _$this._errors ??= new ListBuilder<String>();
+  set errors(ListBuilder<String>? errors) => _$this._errors = errors;
+
   TodayStateBuilder() {
     TodayState._initializeBuilder(this);
   }
@@ -69,6 +81,7 @@ class TodayStateBuilder implements Builder<TodayState, TodayStateBuilder> {
     if ($v != null) {
       _weather = $v.weather?.toBuilder();
       _isLoading = $v.isLoading;
+      _errors = $v.errors.toBuilder();
       _$v = null;
     }
     return this;
@@ -93,12 +106,16 @@ class TodayStateBuilder implements Builder<TodayState, TodayStateBuilder> {
           new _$TodayState._(
               weather: _weather?.build(),
               isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, 'TodayState', 'isLoading'));
+                  isLoading, 'TodayState', 'isLoading'),
+              errors: errors.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'weather';
         _weather?.build();
+
+        _$failedField = 'errors';
+        errors.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'TodayState', _$failedField, e.toString());

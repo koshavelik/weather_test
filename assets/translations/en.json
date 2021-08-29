@@ -1,0 +1,11 @@
+{
+  "today": "Today",
+  "kmPerH": "km/h",
+  "requestCancelled": "Request to API server was cancelled",
+  "connectionTimeout": "Connection timeout with API server",
+  "noInternet": "No Internet Connection",
+  "receiveTimeout": "Receive timeout in connection with API server",
+  "invalidStatusCode": "Received invalid status code",
+  "sendTimeout": "Connection timeout with API server",
+  "somethingWentWrong": "Oops! Something went wrong. Please try again."
+}

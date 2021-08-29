@@ -6,14 +6,20 @@ import 'package:weather_test/model/coord_model.dart';
 import 'package:weather_test/model/current_weather_model.dart';
 import 'package:weather_test/repository/geolocation_repository.dart';
 import 'package:weather_test/repository/weather_repository.dart';
+import 'package:weather_test/utils/error_handler.dart';
 
 export 'today_state.dart';
 
 class TodayBloc extends BaseBloc<TodayEvent, TodayState> {
   final GeolocationRepository _locationRepository;
   final WeatherRepository _weatherRepository;
+  final ErrorHandler _errorHandler;
 
-  TodayBloc(this._locationRepository, this._weatherRepository) : super(TodayState());
+  TodayBloc(
+    this._locationRepository,
+    this._weatherRepository,
+    this._errorHandler,
+  ) : super(TodayState());
 
   @override
   Stream<TodayState> mapEventToState(
@@ -38,6 +44,10 @@ class TodayBloc extends BaseBloc<TodayEvent, TodayState> {
           ..weather = weather?.toBuilder()
           ..isLoading = false);
       }
-    } on Exception catch (e) {}
+    } on Exception catch (e) {
+      yield state.rebuild((b) => b
+        ..errors.add(_errorHandler.getErrorMessage(e))
+        ..isLoading = false);
+    }
   }
 }

@@ -10,17 +10,19 @@ class _$Injector extends Injector {
   @override
   void _configureInterceptors() {
     final KiwiContainer container = KiwiContainer();
-    container..registerSingleton((c) => AuthInterceptor());
+    container
+      ..registerSingleton((c) => AuthInterceptor())
+      ..registerSingleton((c) => LoggerInterceptor(c<Logger>()));
   }
 
   @override
   void _configureBlocProviders() {
     final KiwiContainer container = KiwiContainer();
     container
-      ..registerSingleton(
-          (c) => TodayBloc(c<GeolocationRepository>(), c<WeatherRepository>()))
-      ..registerSingleton((c) =>
-          ForecastBloc(c<GeolocationRepository>(), c<WeatherRepository>()));
+      ..registerSingleton((c) => TodayBloc(c<GeolocationRepository>(),
+          c<WeatherRepository>(), c<ErrorHandler>()))
+      ..registerSingleton((c) => ForecastBloc(c<GeolocationRepository>(),
+          c<WeatherRepository>(), c<ErrorHandler>()));
   }
 
   @override
@@ -41,5 +43,11 @@ class _$Injector extends Injector {
   void _configureThirdPartLibraries() {
     final KiwiContainer container = KiwiContainer();
     container..registerFactory((c) => Location());
+  }
+
+  @override
+  void _configureUtils() {
+    final KiwiContainer container = KiwiContainer();
+    container..registerSingleton((c) => ErrorHandler());
   }
 }

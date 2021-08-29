@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:weather_test/bloc/today/today_bloc.dart';
 import 'package:weather_test/injection/injector.dart';
 import 'package:weather_test/res/images.dart';
-import 'package:weather_test/extensions/context_extensions.dart';
 import 'package:weather_test/ui/screen/current_weather/param_item.dart';
 import 'package:weather_test/ui/widget/divider_custom.dart';
+import 'package:weather_test/ui/widget/error_message.dart';
 import 'package:weather_test/ui/widget/loading.dart';
+import 'package:weather_test/generated/locale_keys.g.dart';
 
 class CurrentWeatherScreen extends StatefulWidget {
   const CurrentWeatherScreen({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
   @override
   void initState() {
     bloc.add(GetCurrentWeather());
+
     super.initState();
   }
 
@@ -29,7 +32,7 @@ class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.strings.today),
+        title: Text(LocaleKeys.today.tr()),
         centerTitle: true,
       ),
       body: BlocBuilder(
@@ -40,6 +43,10 @@ class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
   }
 
   Widget _buildWeather(BuildContext context, TodayState state) {
+    if (state.errors.isNotEmpty) {
+      return ErrorMessage(errors: state.errors);
+    }
+
     if (state.isLoading || state.weather == null) {
       return Loading();
     }
@@ -88,7 +95,7 @@ class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Param(
-                text: '${state.weather?.wind.speedKmPerH} ${context.strings.kmPerH}',
+                text: '${state.weather?.wind.speedKmPerH} ${LocaleKeys.kmPerH.tr()}',
                 image: Images.icon_wind,
               ),
               Param(
