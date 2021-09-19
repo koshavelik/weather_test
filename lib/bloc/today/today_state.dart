@@ -1,5 +1,5 @@
-import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
 import 'package:weather_test/model/current_weather_model.dart';
 
 part 'today_state.g.dart';

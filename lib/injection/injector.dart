@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:location/location.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:weather_test/api/interceptors/auth_interceptor.dart';
 import 'package:weather_test/api/interceptors/logger_interceptor.dart';

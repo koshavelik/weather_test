@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:weather_test/bloc/base_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_test/bloc/forecast/forecast_state.dart';
 import 'package:weather_test/model/coord_model.dart';
 import 'package:weather_test/model/forecast_model.dart';
@@ -10,7 +10,7 @@ import 'package:weather_test/utils/error_handler.dart';
 
 export 'forecast_state.dart';
 
-class ForecastBloc extends BaseBloc<ForecastEvent, ForecastState> {
+class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   final GeolocationRepository _locationRepository;
   final WeatherRepository _weatherRepository;
   final ErrorHandler _errorHandler;

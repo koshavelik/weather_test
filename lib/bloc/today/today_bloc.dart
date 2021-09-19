@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:weather_test/bloc/base_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_test/bloc/today/today_state.dart';
 import 'package:weather_test/model/coord_model.dart';
 import 'package:weather_test/model/current_weather_model.dart';
@@ -10,7 +10,7 @@ import 'package:weather_test/utils/error_handler.dart';
 
 export 'today_state.dart';
 
-class TodayBloc extends BaseBloc<TodayEvent, TodayState> {
+class TodayBloc extends Bloc<TodayEvent, TodayState> {
   final GeolocationRepository _locationRepository;
   final WeatherRepository _weatherRepository;
   final ErrorHandler _errorHandler;
