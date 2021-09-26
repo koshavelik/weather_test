@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:weather_test/res/dimensions.dart';
 
 class ErrorMessage extends StatelessWidget {
-  final BuiltList<String> errors;
+  final List<String> errors;
 
   const ErrorMessage({
     required this.errors,
@@ -35,6 +35,7 @@ class ErrorMessage extends StatelessWidget {
 
   Widget _buildError(BuildContext context, int index) {
     return Center(
+      key: UniqueKey(),
       child: Text(errors[index].tr()),
     );
   }

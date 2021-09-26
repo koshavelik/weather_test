@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:collection/collection.dart';
 import 'package:weather_test/model/city_model.dart';
 import 'package:weather_test/model/forecast_item_model.dart';
 import 'package:weather_test/utils/serializers.dart';

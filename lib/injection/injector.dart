@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:location/location.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:weather_test/api/interceptors/auth_interceptor.dart';
 import 'package:weather_test/api/interceptors/logger_interceptor.dart';
 import 'package:weather_test/api/weather_api.dart';
-import 'package:weather_test/bloc/forecast/forecast_bloc.dart';
-import 'package:weather_test/bloc/today/today_bloc.dart';
+import 'package:weather_test/modules/forecast/logic.dart';
+import 'package:weather_test/modules/tabs/logic.dart';
+import 'package:weather_test/modules/today/logic.dart';
 import 'package:weather_test/repository/geolocation_repository.dart';
 import 'package:weather_test/repository/weather_repository.dart';
 import 'package:weather_test/utils/constants.dart';
@@ -32,7 +33,7 @@ abstract class Injector {
     _configureNetworkModule();
     _configureInterceptors();
     _registerInterceptors();
-    _configureBlocProviders();
+    _configureStateProviders();
     _configureThirdPartLibraries();
     _configureRepositoryProviders();
     _configureApiProviders();
@@ -77,9 +78,10 @@ abstract class Injector {
   void _configureInterceptors();
 
   /// Register Bloc dependencies
-  @Register.singleton(TodayBloc)
-  @Register.singleton(ForecastBloc)
-  void _configureBlocProviders();
+  @Register.singleton(TodayLogic)
+  @Register.singleton(ForecastLogic)
+  @Register.singleton(TabsLogic)
+  void _configureStateProviders();
 
   /// Register repositories dependencies
   @Register.singleton(GeolocationRepository)

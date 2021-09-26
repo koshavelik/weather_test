@@ -1,37 +1,31 @@
-import 'dart:async';
-
-import 'package:weather_test/bloc/base_bloc.dart';
-import 'package:weather_test/bloc/today/today_state.dart';
+import 'package:get/get.dart';
 import 'package:weather_test/model/coord_model.dart';
 import 'package:weather_test/model/current_weather_model.dart';
+import 'package:weather_test/modules/today/state.dart';
 import 'package:weather_test/repository/geolocation_repository.dart';
 import 'package:weather_test/repository/weather_repository.dart';
 import 'package:weather_test/utils/error_handler.dart';
 
-export 'today_state.dart';
+class TodayLogic extends GetxController {
+  final TodayState _state = TodayState();
 
-class TodayBloc extends BaseBloc<TodayEvent, TodayState> {
+  TodayState get state => _state;
+
   final GeolocationRepository _locationRepository;
   final WeatherRepository _weatherRepository;
   final ErrorHandler _errorHandler;
 
-  TodayBloc(
-    this._locationRepository,
-    this._weatherRepository,
-    this._errorHandler,
-  ) : super(TodayState());
+  TodayLogic(this._locationRepository, this._weatherRepository, this._errorHandler);
 
   @override
-  Stream<TodayState> mapEventToState(
-    TodayEvent event,
-  ) async* {
-    if (event is GetCurrentWeather) {
-      yield* _getCurrentWeather();
-    }
+  void onInit() {
+    super.onInit();
+    _getCurrentWeather();
   }
 
-  Stream<TodayState> _getCurrentWeather() async* {
+  Future<void> _getCurrentWeather() async {
     try {
+      state.loading.value = false;
       final CoordModel? locationData = await _locationRepository.getLocation();
 
       if (locationData != null) {
@@ -40,14 +34,14 @@ class TodayBloc extends BaseBloc<TodayEvent, TodayState> {
           locationData.lon,
         );
 
-        yield state.rebuild((b) => b
-          ..weather = weather?.toBuilder()
-          ..isLoading = false);
+        if (weather != null) {
+          state.loading.value = false;
+          state.weather.value = weather;
+        }
       }
     } on Exception catch (e) {
-      yield state.rebuild((b) => b
-        ..errors.add(_errorHandler.getErrorMessage(e))
-        ..isLoading = false);
+      state.loading.value = false;
+      state.errors.add(_errorHandler.getErrorMessage(e));
     }
   }
 }

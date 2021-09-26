@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:weather_test/router.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weather_test/app_screens.dart';
 
 class App extends StatefulWidget {
   @override
@@ -8,19 +9,16 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final AppRouter _appRouter = AppRouter();
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp(
       title: 'Weather Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerDelegate: _appRouter.delegate(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
-      builder: (context, router) => router!,
+      initialRoute: AppScreens.INITIAL,
+      getPages: AppScreens.routes,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       localeResolutionCallback: (locale, supportedLocales) {

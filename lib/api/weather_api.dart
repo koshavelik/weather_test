@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:weather_test/model/current_weather_model.dart';
 import 'package:weather_test/extensions/future_extensions.dart';
+import 'package:weather_test/model/current_weather_model.dart';
 import 'package:weather_test/model/forecast_model.dart';
 import 'package:weather_test/utils/constants.dart';
 

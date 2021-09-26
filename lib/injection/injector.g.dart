@@ -16,13 +16,14 @@ class _$Injector extends Injector {
   }
 
   @override
-  void _configureBlocProviders() {
+  void _configureStateProviders() {
     final KiwiContainer container = KiwiContainer();
     container
-      ..registerSingleton((c) => TodayBloc(c<GeolocationRepository>(),
+      ..registerSingleton((c) => TodayLogic(c<GeolocationRepository>(),
           c<WeatherRepository>(), c<ErrorHandler>()))
-      ..registerSingleton((c) => ForecastBloc(c<GeolocationRepository>(),
-          c<WeatherRepository>(), c<ErrorHandler>()));
+      ..registerSingleton((c) => ForecastLogic(c<GeolocationRepository>(),
+          c<WeatherRepository>(), c<ErrorHandler>()))
+      ..registerSingleton((c) => TabsLogic());
   }
 
   @override
